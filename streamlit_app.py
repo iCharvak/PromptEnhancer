@@ -1,6 +1,9 @@
 import streamlit as st
-import openai
-from openai import OpenAI
+try:
+    from openai import OpenAI
+except ImportError:
+    st.error("OpenAI package not found. Please check your requirements.txt file.")
+    st.stop()
 
 # Page configuration
 st.set_page_config(
@@ -90,7 +93,7 @@ def enhance_prompt(role, context, task, api_key):
         return response.choices[0].message.content
 
     except Exception as e:
-        return f"Error: {str(e)}"
+        return f"Error: {str(e)}. Please check your API key and try again."
 
 def main():
     # Main header
